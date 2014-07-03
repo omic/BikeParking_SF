@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 import json
@@ -9,6 +10,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+@csrf_exempt
 def retrievelocs(request):
 	if(request.method == 'GET'):
 		coordinates = ParkingLocs.objects.values('location','coordinates')
@@ -18,8 +20,9 @@ def retrievelocs(request):
 		return HttpResponse(jsonData)
 	elif (request.method == 'POST'):
 		coordinate = request.POST.get('coordinate')
-		entry = ParkingLocs.objects.get(coordinates=coordinate)
-		return HttpResponse(entry)
+		# entry = ParkingLocs.objects.get(coordinates = coordinate)
+		return HttpResponse("entry")
+		# return HttpResponse(entry)
 
     
     
