@@ -19,8 +19,11 @@ def retrievelocs(request):
 		jsonData= json.dumps(list(coordinates))
 		return HttpResponse(jsonData)
 	elif (request.method == 'POST'):
-		coordinate = request.POST.get('coordinate')
-		# entry = ParkingLocs.objects.get(coordinates = coordinate)
+		location = request.POST.get('location')
+		print location
+		entry = ParkingLocs.objects.filter(location = location)
+		jsonData = json.dumps(list(entry))
+		print jsonData
 		return HttpResponse("entry")
 		# return HttpResponse(entry)
 

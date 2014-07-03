@@ -133,11 +133,8 @@ function locsController() {
 			        }
 			    }
 
-			    alert(map.markers[closest].title);
-				
-				// console.log(map.markers[closest].getPosition().toString());
-			
-				$.post( 'parkinglocs/', { 'coordinate': map.markers[closest].getPosition().toString() } );
+			    alert(map.markers[closest].title);			
+				$.post( 'parkinglocs/', { 'coordinate': map.markers[closest].getPosition().toString() , 'location': map.markers[closest].getTitle()} );
 			// 	var jqxhr = $.post( 'parkinglocs/', function() {
 			// 		  alert( "success" );
 			// 	})
