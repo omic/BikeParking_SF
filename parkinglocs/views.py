@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 import json
+from django.core import serializers
 
 from parkinglocs.models import ParkingLocs
 
@@ -20,12 +21,12 @@ def retrievelocs(request):
 		return HttpResponse(jsonData)
 	elif (request.method == 'POST'):
 		location = request.POST.get('location')
-		print location
-		entry = ParkingLocs.objects.filter(location = location)
-		jsonData = json.dumps(list(entry))
+		# duplicate data entries exist!
+		entry = ParkingLocs.objects.filter(location = location)[:1]
+		# print entry
+		jsonData = serializers.serialize('json', entry)
 		print jsonData
-		return HttpResponse("entry")
-		# return HttpResponse(entry)
+		return HttpResponse(jsonData)
 
     
     
