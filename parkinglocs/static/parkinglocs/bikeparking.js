@@ -11,7 +11,6 @@ function locsController() {
 					var markerObj = new Object();
 					markerObj.location = oneLoc["location"];
 					var GPSlocation = oneLoc["coordinates"].replace("(", "").replace(")", "").split(", ");
-					
 					var Lat = parseFloat(GPSlocation[0]);
 					var Lng = parseFloat(GPSlocation[1]);
 					var myLatlng = new google.maps.LatLng(Lat,Lng);
@@ -93,6 +92,8 @@ function locsController() {
 					infowindow.open(map, map.markers[closest])					
 				});
 			});
+			
+			var mc = new MarkerClusterer(map, map.markers);
 	}
 	
 	function rad(x) {return x*Math.PI/180;}
