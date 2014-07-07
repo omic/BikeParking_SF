@@ -1,4 +1,7 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 class ParkingLocs(models.Model):
     location = models.CharField(max_length=200)
@@ -38,4 +41,6 @@ class ParkingLocs(models.Model):
     	return self.location
     	
     def was_added_recently(self):
-    	return self.latestupdatetime >= timezone.now()-datetime.timedelta(days=1)
+		now = timezone.now()
+		return now - datetime.timedelta(days=1) <= self.latestupdatetime <= now
+    	# return self.latestupdatetime >= timezone.now()-datetime.timedelta(days=1)
