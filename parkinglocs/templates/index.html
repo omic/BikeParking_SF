@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-		html { height: 100% }
-      	body { height: 100%; margin: 0; padding: 0 }
-      	#map-canvas { height: 100% }
-    </style>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"> </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"> </script>
-    <script type="text/javascript" language="javascript" src="/static/parkinglocs/bikeparking.js"> </script>
-	<script type="text/javascript" language="javascript" src="/static/parkinglocs/markerclusterer.js"> </script>
-	<script> 
-		var controller =  new locsController();
-    	controller.requestMarkerData();  	
-	</script>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/static/css/style.css">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"> </script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"> </script>
+		<script type="text/javascript" language="javascript" src="/static/js/bikeparking.js"> </script>
+		<script type="text/javascript" language="javascript" src="/static/js/markerclusterer.js"> </script>
+		<title>Bike Parking - San Francisco</title>
 	</head>
-  	<body> 
-		<div id="map-canvas"/> 
+	<body>
+		<div id="map-canvas"/>
+		<script>
+			var controller =  new locsController();
+			controller.requestMarkerData();
+		</script>
 	</body>
 </html>

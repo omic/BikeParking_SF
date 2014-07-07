@@ -15,17 +15,14 @@ logger = logging.getLogger(__name__)
 def retrievelocs(request):
 	if(request.method == 'GET'):
 		coordinates = ParkingLocs.objects.values('location','coordinates')
-# 		initcoordinates = ParkingLocs.objects.filter(status="COMPLETE")
-# 		coordinates = initcoordinates.values('location','coordinates')
 		jsonData= json.dumps(list(coordinates))
 		return HttpResponse(jsonData)
 	elif (request.method == 'POST'):
 		location = request.POST.get('location')
 		# duplicate data entries exist!
 		entry = ParkingLocs.objects.filter(location = location)[:1]
-		# print entry
 		jsonData = serializers.serialize('json', entry)
-		print jsonData
+		# print jsonData
 		return HttpResponse(jsonData)
 
     

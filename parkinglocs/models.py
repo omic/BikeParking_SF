@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class ParkingLocs(models.Model):
     location = models.CharField(max_length=200)
     bos = models.CharField(max_length=20) # 1-11
