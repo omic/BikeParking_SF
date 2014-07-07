@@ -7,6 +7,7 @@ from parkinglocs.models import ParkingLocs
 from django.shortcuts import get_object_or_404 
 import csv
 
+@csrf_exempt
 def retrievelocs(request):
 	c = Controller()
 	if request.method == 'GET':

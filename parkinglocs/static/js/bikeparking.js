@@ -13,7 +13,7 @@ function locsController() {
 	var SFAREA = {'NORTH': 37.810068, 'SOUTH': 37.708554, 'WEST': -122.513989, 'EAST': -122.356738};
 		
 	this.requestMarkerData = function () {
-		var url = 'parkinglocs/';
+		var url = 'parkinglocs/retrievelocs';
 		var jqxhr = $.getJSON(url, function(data) {
 			for (var i = 0; i < data.length; i++) {
 				var oneLoc = data[i];
@@ -94,7 +94,7 @@ function locsController() {
 		        }
 		    }
 
-			$.post( 'parkinglocs/', 
+			$.post( 'parkinglocs/retrievelocs', 
 				{ 'coordinate': map.markers[closest].getPosition().toString() , 'location': map.markers[closest].getTitle()})
 				.done(function(data) {
 					var obj = JSON && JSON.parse(data) || $.parseJSON(data);
