@@ -1,4 +1,13 @@
+// class locsController:
+// properties: parkingLocs array, map
+// methods: requestMarkerData
+
 function locsController() {
+	// major controller method
+	// 1. retrieve data from server
+	// 2. show data on map
+	// 3. show detailed location information (ajax)
+	
 	var parkingLocs = new Array();
 	var map;
 	var SFAREA = {'NORTH': 37.810068, 'SOUTH': 37.708554, 'WEST': -122.513989, 'EAST': -122.356738};
@@ -11,6 +20,7 @@ function locsController() {
 				if(oneLoc["location"]!=null) {
 					var markerObj = new Object();
 					markerObj.location = oneLoc["location"];
+					// parser json string of coordinates into float and saved in google.maps.LatLng
 					var GPSlocation = oneLoc["coordinates"].replace("(", "").replace(")", "").split(", ");
 					var Lat = parseFloat(GPSlocation[0]);
 					var Lng = parseFloat(GPSlocation[1]);
@@ -20,14 +30,15 @@ function locsController() {
 				}
 			}
 		 }).complete(function() {
-			console.log(parkingLocs);
+			// console.log(parkingLocs);
+			// load map after loading data
 			google.maps.event.addDomListener(window, 'load', initialize());
 		});
 	}
 	
 	function initialize() {
 		//default map center
-		var myLatlng = new google.maps.LatLng(37.773478, -122.421888);
+		var myLatlng = new google.maps.LatLng(37.776539, -122.441854);
 		
 		if(navigator.geolocation) {
 			// get current location
@@ -42,14 +53,12 @@ function locsController() {
 		  }
 		
 	  	var mapOptions = {
-	  			zoom: 20,
+	  			zoom: 12,
 	    		center: myLatlng
 	    	}
-	
-
 		
 		map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		map.markers = [];
+		map.markers = [];	// store all map markers
 	
 		for (var i=0; i < parkingLocs.length; i++) {
 			var marker = parkingLocs[i];
@@ -63,6 +72,8 @@ function locsController() {
 			
 
 		google.maps.event.addListener(map, 'click', function( event ) {
+			// add listener to the whole map
+			// click anywhere on map, return the nearest parking location information
 			var lat = event.latLng.lat();
 			var lng = event.latLng.lng();
 		    var R = 6371;
@@ -108,25 +119,28 @@ function locsController() {
 				});
 			});
 			
+			// cluster markers
+			// methods: https://developers.google.com/maps/articles/toomanymarkers
+			//KNN algorithm: http://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
 			var mc = new MarkerClusterer(map, map.markers);
 	}
 	
 	function rad(x) {return x*Math.PI/180;}
 	
-	function handleNoGeolocation(errorFlag) {
-	  if (errorFlag) {
-	    var content = 'Error: The Geolocation service failed.';
-	  } else {
-	    var content = 'Error: Your browser doesn\'t support geolocation.';
-	  }
-
-	  var options = {
-	    map: map,
-	    position: new google.maps.LatLng(60, 105),
-	    content: content
-	  };
-
-	  var infowindow = new google.maps.InfoWindow(options);
-	  map.setCenter(options.position);
-	}
+	// function handleNoGeolocation(errorFlag) {
+	//   if (errorFlag) {
+	//     var content = 'Error: The Geolocation service failed.';
+	//   } else {
+	//     var content = 'Error: Your browser doesn\'t support geolocation.';
+	//   }
+	// 
+	//   var options = {
+	//     map: map,
+	//     position: new google.maps.LatLng(60, 105),
+	//     content: content
+	//   };
+	// 
+	//   var infowindow = new google.maps.InfoWindow(options);
+	//   map.setCenter(options.position);
+	// }
 }
