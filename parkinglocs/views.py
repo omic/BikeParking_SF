@@ -24,10 +24,8 @@ def dbmanage(request):
 	
 
 class DBManage():
-	
-	csv_filepathname = "/static/Bicycle_Parking__Public_.csv"
-	
 	def loaddata(self,request):
+		csv_filepathname = "/static/Bicycle_Parking__Public_.csv"
 		with open(csv_filepathname, 'rb') as csvfile:
 			csv_dict = csv.DictReader(csvfile, delimiter=',')
 			status_key= ['1_STATUS','2_STATUS_HIGH_LEVEL','3_STATUS_DETAIL','4_STATUS_DESCRIPTION','5_ACTING_AGENT','6_ACTION']
